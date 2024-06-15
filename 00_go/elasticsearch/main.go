@@ -14,14 +14,9 @@ import (
 
 func main() {
 	retryBackoff := backoff.NewExponentialBackOff()
-	// cert, err := os.ReadFile("cert.pem")
-	// if err != nil {
-	// 	log.Println("load crt error:", err)
-	// }
-
 	log.Println("begin....")
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{"https://172.18.0.2:9200"},
+		Addresses: []string{"https://myes:9200"},
 		//kibana 网页生成
 		APIKey:   "RHlDekdaQUJLellJaUJMY1J3Wno6WEpWQ3ZmbzhTZy1DREtmbkVwcVI0Zw==",
 		Username: "elastic",
@@ -29,7 +24,6 @@ func main() {
 
 		//  openssl x509 -in http_ca.crt -noout -fingerprint -sha256
 		CertificateFingerprint: "1E58903BF642C53620EC99333A592E98F269E6316596407F48B86F74DB9F95C7",
-		//CACert:                 cert,
 		// Retry on 429 TooManyRequests statuses
 		//
 		RetryOnStatus: []int{502, 503, 504, 429},

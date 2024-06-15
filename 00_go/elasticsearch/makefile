@@ -1,7 +1,9 @@
 GO_TEST_CMD = $(if $(shell which richgo),richgo test,go test)
 export ELASTICSEARCH_URL=http://elastic:elastic@localhost:9200
+default:
+	go build -o es_test
 amd:
-	GOARCH=amd64 GOOS=linux go build -o $(BUILD_DIR)/$@
+	GOARCH=amd64 GOOS=linux go build -o ../build/es_test.amd64
 arm:
 	GOARCH=arm64 GOOS=linux go build -o ../build/es_test.arm64
 test: test-default test-indexer
@@ -22,4 +24,4 @@ setup:
 clean:
 	@rm -f benchmarks/model/*_easyjson.go
 
-.PHONY: amd arm test test-default test-indexer test-benchmarks setup clean
+.PHONY: default amd arm test test-default test-indexer test-benchmarks setup clean
