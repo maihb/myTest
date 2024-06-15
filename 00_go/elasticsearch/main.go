@@ -14,9 +14,22 @@ import (
 
 func main() {
 	retryBackoff := backoff.NewExponentialBackOff()
+	// cert, err := os.ReadFile("cert.pem")
+	// if err != nil {
+	// 	log.Println("load crt error:", err)
+	// }
+
 	log.Println("begin....")
 	es, err := elasticsearch.NewClient(elasticsearch.Config{
-		Addresses: []string{"https://57.180.13.176:9200"},
+		Addresses: []string{"https://172.18.0.2:9200"},
+		//kibana 网页生成
+		APIKey:   "RHlDekdaQUJLellJaUJMY1J3Wno6WEpWQ3ZmbzhTZy1DREtmbkVwcVI0Zw==",
+		Username: "elastic",
+		Password: "ShQoF9F_-H99OmWxBDKT",
+
+		//  openssl x509 -in http_ca.crt -noout -fingerprint -sha256
+		CertificateFingerprint: "1E58903BF642C53620EC99333A592E98F269E6316596407F48B86F74DB9F95C7",
+		//CACert:                 cert,
 		// Retry on 429 TooManyRequests statuses
 		//
 		RetryOnStatus: []int{502, 503, 504, 429},
@@ -30,9 +43,11 @@ func main() {
 		},
 		MaxRetries: 1,
 	})
+	log.Println("eeeeeeeeeeeeerrrr")
 	if err != nil {
 		log.Fatalf("Error creating the client: %s", err)
 	}
+	log.Println("eeeeeeeeeeeeerrrr111")
 
 	// 构建 Bulk 请求体
 	var b strings.Builder
@@ -43,6 +58,7 @@ func main() {
 	b.Grow(len(meta) + len(data))
 	b.Write(meta)
 	b.Write(data)
+	log.Println("eeeeeeeeeeeeerrrr111222")
 
 	// 更新操作
 	meta = []byte(`{ "update" : { "_index" : "test", "_id" : "1" } }` + "\n")
