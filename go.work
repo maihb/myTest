@@ -12,4 +12,5 @@ use (
 	./00_go/kafka/consumer
 	./00_go/kafka/producer
 	./00_go/tmp
+	./00_go/go_test
 )
