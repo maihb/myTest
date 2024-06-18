@@ -1,6 +1,8 @@
 go 1.22.1
 
 use (
+	./00_go/CoAP/client
+	./00_go/CoAP/server
 	./00_go/cn_test/LNT_TEST
 	./00_go/cn_test/gCallSo
 	./00_go/cn_test/goSo
@@ -9,8 +11,8 @@ use (
 	./00_go/elasticsearch
 	./00_go/goLibs/fprModel
 	./00_go/goPro
+	./00_go/go_test
 	./00_go/kafka/consumer
 	./00_go/kafka/producer
 	./00_go/tmp
-	./00_go/go_test
 )
